@@ -98,6 +98,7 @@ export default {
 
   data() {
     return {
+      title: 'Categories',
       resource: 'categories',
       search: '',
       modal: {
@@ -113,6 +114,24 @@ export default {
       }),
 
       dataItems: {},
+    }
+  },
+
+  head() {
+    return {
+      title: this.title,
+
+      meta: [
+        {
+          property: 'og:description',
+          content: 'Esta pagina muestra todas las categorias para clasificar los productos de la tienda',
+        },
+
+        {
+          property: 'og:image',
+          content: 'https://ichef.bbci.co.uk/news/1024/branded_mundo/4425/production/_114154471_sitges.jpg',
+        },
+      ]
     }
   },
 

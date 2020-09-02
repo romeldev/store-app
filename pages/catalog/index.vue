@@ -43,8 +43,6 @@ export default {
       }),
 
       dataItems: {},
-
-      meta: [],
     }
   },
 
@@ -55,28 +53,33 @@ export default {
     }
     let dataItems =  await store.dispatch('catalog/getDataItems', params)
     dataItems = dataItems.data;
+    return { dataItems }
+  },
 
-    let meta = [
+  head() {
+
+    let head = {}
+    head.title = this.resource
+
+    head.meta = [
       {
-        property: 'og.description',
+        property: 'og:title',
+        content: this.resource,
+      },
+      {
+        property: 'og:description',
         content: 'Encuentra los mejores productos en nuestro catalago virtual!'
       }
     ]
-    dataItems.data.forEach(item => {
-      meta.push({
+
+    this.dataItems.data.forEach(item => {
+      head.meta.push({
         property: 'og:image',
         content: item.image
       })
     });
-    
-    return { dataItems, meta }
-  },
 
-  head() {
-    return  {
-      title: this.resource,
-      meta: this.meta,
-    }
+    return head;
   },
 
   created(){

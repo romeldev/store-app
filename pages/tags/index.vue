@@ -127,11 +127,15 @@ export default {
           content: 'Listado de todas las etiquetas que se utilizan para clasificar a los productos',
         },
 
-        //video 3
+        //video 4
         {
           property: 'og:video',
           content: 'https://www.youtube.com/v/BQBjVr1iHH4',
-          // content: 'https://youtu.be/cCF8ryrEXuU',
+        },
+
+        {
+          property: 'og:image',
+          content: 'https://img.youtube.com/vi/BQBjVr1iHH4/0.jpg',
         },
         {
           property: 'og:type',

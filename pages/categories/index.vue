@@ -126,8 +126,8 @@ export default {
           property: 'og:description',
           content: 'Esta pagina muestra todas las categorias para clasificar los productos de la tienda',
         },
-        
 
+        //linea 2
         {
           property: 'og:image',
           content: 'https://ichef.bbci.co.uk/news/1024/branded_mundo/4425/production/_114154471_sitges.jpg',

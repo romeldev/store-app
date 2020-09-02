@@ -35,7 +35,6 @@ export const actions = {
     },
 
     getDataItems(context, params) {
-
         return new Promise( (resolve, reject) => {
             axios.get('catalog', {params})
             .then( res => {
@@ -48,9 +47,8 @@ export const actions = {
     },
 
     getDataItem(context, params) {
-        console.log(params);
         return new Promise( (resolve, reject) => {
-            axios.get(`http://store-api.test/api/catalog/${params.id}`)
+            axios.get(`catalog/${params.id}`)
             .then( res => {
                 resolve(res)
             })

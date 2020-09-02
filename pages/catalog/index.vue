@@ -57,7 +57,6 @@ export default {
   },
 
   head() {
-
     let head = {}
     head.title = this.resource
 

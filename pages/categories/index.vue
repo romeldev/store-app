@@ -126,6 +126,7 @@ export default {
           property: 'og:description',
           content: 'Esta pagina muestra todas las categorias para clasificar los productos de la tienda',
         },
+        
 
         {
           property: 'og:image',

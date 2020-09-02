@@ -117,6 +117,23 @@ export default {
     }
   },
 
+  head() {
+    return  {
+      title: this.resource,
+
+      meta: [
+        {
+          property: 'og:description',
+          content: 'Listado de todas las etiquetas que se utilizan para clasificar a los productos',
+        },
+        {
+          property: 'og:video',
+          content: 'https://www.youtube.com/watch?v=gIqLA4Ct2QU',
+        },
+      ]
+    }
+  },
+
   created() {
     this.getItems();
   },

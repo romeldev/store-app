@@ -130,6 +130,10 @@ export default {
           property: 'og:video',
           content: 'https://youtu.be/cCF8ryrEXuU',
         },
+        {
+          property: 'og:type',
+          content: 'video',
+        },
       ]
     }
   },

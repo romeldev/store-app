@@ -40,8 +40,55 @@ export default {
         _method: '', // POST/PUT/DELETE
       }),
 
-      dataItems: {},
+      dataItems: {
+      },
     }
+  },
+
+  head() {
+
+    let head = {};
+
+    head.title = 'productos'
+    head.meta = []
+    head.meta.push({
+      property: 'og:description',
+      content: 'Este es nuestro catalogo, aqui encontraras los productos acorde a la tendencia actual de mercado online!',
+    })
+
+    if( this.dataItems.data!=null){
+      this.dataItems.data.forEach(item => {
+        if(item.photos.length > 0){
+          head.meta.push({
+            property: 'og:image',
+            content: item.photos[0].url
+          })
+        }
+      })
+
+    }
+
+    // this.dataItems.data.each(item => {
+    //   console.log(item)
+    // });
+
+    return head;
+    
+    // return  {
+    //   title: this.resource,
+
+    //   meta: [
+    //     {
+    //       property: 'og:description',
+    //       content: 'Este es nuestro catalogo, aqui encontraras los productos acorde a la tendencia actual de mercado online!',
+    //     },
+
+    //     {
+    //       property: 'og:image',
+    //       content: require('@/assets/galery_products.jpg')
+    //     },
+    //   ]
+    // }
   },
 
   created() {

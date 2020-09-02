@@ -126,9 +126,12 @@ export default {
           property: 'og:description',
           content: 'Listado de todas las etiquetas que se utilizan para clasificar a los productos',
         },
+
+        //video 3
         {
           property: 'og:video',
-          content: 'https://youtu.be/cCF8ryrEXuU',
+          content: 'https://www.youtube.com/v/BQBjVr1iHH4',
+          // content: 'https://youtu.be/cCF8ryrEXuU',
         },
         {
           property: 'og:type',

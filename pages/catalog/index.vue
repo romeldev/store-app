@@ -17,6 +17,7 @@
 <script>
 import Paginator from '@/components/Pagination'
 import CatalogProduct from '@/components/CatalogProduct'
+import axios from 'axios'
 
 export default {
   components: {
@@ -42,57 +43,33 @@ export default {
 
       dataItems: {
       },
+
+      metas: [],
     }
   },
 
-  head() {
-
-    let head = {};
-
-    head.title = 'productos'
-    head.meta = []
-    head.meta.push({
-      property: 'og:description',
-      content: 'Este es nuestro catalogo, aqui encontraras los productos acorde a la tendencia actual de mercado online!',
-    })
-
-    if( this.dataItems.data!=null){
-      this.dataItems.data.forEach(item => {
-        if(item.photos.length > 0){
-          head.meta.push({
-            property: 'og:image',
-            content: item.photos[0].url
-          })
-        }
+  async asyncData({ params }) {
+    const { data } = await axios.get('http://store-api.yodira.com/api/products/1')
+    let metas_tmp = [];
+    data.data.photos.forEach(photo => {
+      metas_tmp.push({
+        property: 'og:image',
+        content: photo.url
       })
+    })
+    return { metas: metas_tmp }
+  },
 
+  head() {
+    return  {
+      title: this.resource,
+      meta: this.metas,
     }
-
-    // this.dataItems.data.each(item => {
-    //   console.log(item)
-    // });
-
-    return head;
-    
-    // return  {
-    //   title: this.resource,
-
-    //   meta: [
-    //     {
-    //       property: 'og:description',
-    //       content: 'Este es nuestro catalogo, aqui encontraras los productos acorde a la tendencia actual de mercado online!',
-    //     },
-
-    //     {
-    //       property: 'og:image',
-    //       content: require('@/assets/galery_products.jpg')
-    //     },
-    //   ]
-    // }
   },
 
   created() {
     this.getItems();
+    console.log(this.metas);
   },
 
   methods: {

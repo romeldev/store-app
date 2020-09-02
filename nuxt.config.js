@@ -1,5 +1,15 @@
+require('dotenv').config()
 
 export default {
+
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL,
+  },
+  
+  privateRuntimeConfig: {
+    apiSecret: 'jamer1995',
+  },
+
   /*
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
@@ -29,36 +39,34 @@ export default {
 
     script: [
       {
-        src: "jquery.min.js",
+        src: "/jquery.min.js",
+        type: "text/javascript",
+      },
+
+      {
+        src: "/main.js",
         type: "text/javascript"
       },
 
       {
-        src: "main.js",
+        src: '/bulma-carousel.min.js',
         type: "text/javascript"
-      }
+      },
     ]
-
-    
-
-    // script: [
-    //   {
-    //     src: "https://code.jquery.com/jquery-3.3.1.slim.min.js",
-    //     type: "text/javascript"
-    //   }
-    // ]
   },
   /*
   ** Global CSS
   */
   css: [
-    '@fortawesome/fontawesome-svg-core/styles.css'
+    '@fortawesome/fontawesome-svg-core/styles.css',
+    'bulma-carousel/dist/css/bulma-carousel.min.css',
   ],
   /*
   ** Plugins to load before mounting the App
   ** https://nuxtjs.org/guide/plugins
   */
   plugins: [
+    '@/plugins/filters.js',
     '@/plugins/vform.js',
     '@/plugins/fontawesome.js',
     '@/plugins/laravelVuePagination.js',
@@ -74,6 +82,7 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     // '@nuxtjs/eslint-module'
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Nuxt.js modules
@@ -83,15 +92,15 @@ export default {
     '@nuxtjs/bulma',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: 'http://store-api.yodira.com/api/'
-    // baseURL: 'http://store-api.test/api/'
+    baseURL: process.env.API_URL,
+    // baseURL: 'http://store-api.test/api',
+    // baseURL: 'http://store-api.yodira.com/api',
   },
   /*
   ** Build configuration

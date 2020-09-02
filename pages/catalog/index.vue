@@ -6,22 +6,23 @@
       </div>
 
       <div class="column is-full">
-        <Paginator :data="dataItems" @clicked="getItems" />
+          <CatalogPaginator
+          :current_page="dataItems.meta.current_page" 
+          :last_page="dataItems.meta.last_page" 
+          @clicked="getItems" />
       </div>
-    </div>
 
-    
+    </div>
   </div>
 </template>
 
 <script>
-import Paginator from '@/components/Pagination'
+import CatalogPaginator from '@/components/CatalogPaginator'
 import CatalogProduct from '@/components/CatalogProduct'
-import axios from 'axios'
 
 export default {
   components: {
-    Paginator,
+    CatalogPaginator,
     CatalogProduct
   },
 
@@ -41,81 +42,62 @@ export default {
         _method: '', // POST/PUT/DELETE
       }),
 
-      dataItems: {
-      },
+      dataItems: {},
 
-      metas: [],
+      meta: [],
     }
   },
 
-  async asyncData({ params }) {
-    const { data } = await axios.get('http://store-api.yodira.com/api/products/1')
-    let metas_tmp = [];
-    data.data.photos.forEach(photo => {
-      metas_tmp.push({
+  async asyncData({ query, store }) {
+    let params = {
+      page: query.page==null? 1: query.page,
+      search: query.search==null? '': query.search,
+    }
+    let dataItems =  await store.dispatch('catalog/getDataItems', params)
+    dataItems = dataItems.data;
+
+    let meta = [
+      {
+        property: 'og.description',
+        content: 'Encuentra los mejores productos en nuestro catalago virtual!'
+      }
+    ]
+    dataItems.data.forEach(item => {
+      meta.push({
         property: 'og:image',
-        content: photo.url
+        content: item.image
       })
-    })
-    return { metas: metas_tmp }
+    });
+    
+    return { dataItems, meta }
   },
 
   head() {
     return  {
       title: this.resource,
-      meta: this.metas,
+      meta: this.meta,
     }
   },
 
-  created() {
-    this.getItems();
-    console.log(this.metas);
+  created(){
+    // this.getItems()
   },
 
   methods: {
+    async getItems( page=1 ) {
 
-    openForm(action, item={})
-    {
-      this.form.fill(item);
-      this.form._action = action;
-      this.modal.open = true;
+      this.$router.push({ name: 'catalog', query: {page: page} })
 
-      if( this.form._action=='create') this.form._method = 'POST'
-      if( this.form._action=='edit') this.form._method = 'PUT'
-      if( this.form._action=='delete') this.form._method = 'DELETE'
-      if( this.form._action=='show') this.form._method = 'GET'
-    },
+      let params = {
+        page: page,
+        search: this.search,
+      }
 
-    closeForm()
-    {
-      // this.form.reset();
-      this.form.clear();
-      this.modal.open = false;
-    },
-
-    save() {
-      let url = this.$axios.defaults.baseURL
-
-      url += this.form._action==='create'? `${this.resource}`
-        : `${this.resource}/${this.form.id}`;
-
-      this.form.post( url )
-      .then( res => {
-        this.getItems();
-        this.closeForm();
-      })
-      .catch(err => {
-        console.error(err.response)
-      })
-    },
-
-    async getItems( page=1) {
-      let resItems = await this.$axios.get(`${this.resource}?page=${page}&search=${this.search}`);
+      let resItems = await this.$store.dispatch('catalog/getDataItems', params)
       this.dataItems = resItems.data;
       this.dataItems.current_page = this.dataItems.meta.current_page;
       this.dataItems.last_page = this.dataItems.meta.last_page;
     }
-
   }
 }
 </script>

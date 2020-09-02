@@ -18,7 +18,7 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <nuxt-link to="/catalog" class="navbar-item">Home</nuxt-link>
+            <nuxt-link to="/catalog" class="navbar-item">Catalog</nuxt-link>
             <nuxt-link to="/products" class="navbar-item">products</nuxt-link>
             <nuxt-link to="/categories" class="navbar-item">categories</nuxt-link>
             <nuxt-link to="/tags" class="navbar-item">tags</nuxt-link>

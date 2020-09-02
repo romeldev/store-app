@@ -128,7 +128,7 @@ export default {
         },
         {
           property: 'og:video',
-          content: 'https://www.youtube.com/watch?v=gIqLA4Ct2QU',
+          content: 'https://youtu.be/cCF8ryrEXuU',
         },
       ]
     }
